@@ -1,3 +1,46 @@
+#ifndef woorden_h
+#define woorden_h
+
+#define LW_HET       3, 123
+#define LW_IS        2, 127
+#define LW_KWART     5, 130
+#define LW_GELUK     5, 117
+#define LW_KIG       3, 114
+#define LW_VIJF      4, 110
+#define LW_TIEN      4, 99
+#define LW_OVER      4, 104
+#define LW_VOOR      4, 94
+#define LW_HALF      4, 89
+#define LW_FIJNE     5, 74
+#define LW_KERST     5, 81
+#define LW_VER       3, 50
+#define LW_NIEUW     5, 53
+#define LW_JAAR      4, 58
+#define LW_DAG       3, 38
+#define LW_SEC       3, 5
+#define LW_UUR       3, 8
+#define LW_GRADEN    2, 11
+#define LW_MMB       3, 86
+
+#define LC_EEN       3, 69
+#define LC_TWEE      4, 70
+#define LC_DRIE      4, 65
+#define LC_VIER      4, 45
+#define LC_VIJF      4, 41
+#define LC_ZES       3, 62
+#define LC_ZEVEN     5, 26
+#define LC_ACHT      4, 31
+#define LC_NEGEN     5, 20
+#define LC_TIEN      4, 34
+#define LC_ELF       3, 1
+#define LC_TWAALF    6, 14
+
+#define LT_MINUTE_1  1, 122
+#define LT_MINUTE_2  1, 135
+#define LT_MINUTE_3  1, 13
+#define LT_MINUTE_4  1, 0
+
+
 #define W_HET       { 3, 123, 124, 125 }
 #define W_IS        { 2, 127, 128}
 #define W_KWART     { 5, 130, 131, 132, 133, 134 }
@@ -36,3 +79,5 @@
 #define T_MINUTE_2  { 1, 135 }
 #define T_MINUTE_3  { 1, 13}
 #define T_MINUTE_4  { 1, 0 }
+
+#endif
