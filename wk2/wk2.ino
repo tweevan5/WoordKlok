@@ -14,8 +14,12 @@
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
 #include <EEPROM.h>
+#include <TimeLib.h>
 
+#include "main_var.h"
 #include "woorden.h"
+#include "tijd.h"
+#include "tijd_var.h"
 
 // **********************************************// Software release
 #define SOFTWARE_MAJOR_VERSION       3
@@ -26,11 +30,20 @@
 #define NUMPIXELS                    136
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, LED_OUT, NEO_GRBW + NEO_KHZ800);
 
+void ReadTime()
+{
+  uren = hour();
+  minuten = minute();
+  seconden = second();
+  dag = day();
+  maand = month();
+  jaar = year();  
+}
 
-void SetAll(unsigned char rood, unsigned char groen, unsigned char blauw, unsigned char wit)
+void SetAll(bool show, unsigned char rood, unsigned char groen, unsigned char blauw, unsigned char wit)
 {
   for (unsigned char cnt = 0; cnt < NUMPIXELS; cnt++) pixels.setPixelColor(cnt, rood, groen, blauw, wit);
-  pixels.show();  
+  if (show) pixels.show();  
 }
 
 void Laatzien(unsigned char rood, unsigned char groen, unsigned char blauw, unsigned char wit)
@@ -50,13 +63,23 @@ void ShowWord(unsigned char length, unsigned char start, unsigned char rood, uns
 
 void setup()
 {
+  hetis = 0;
+  Serial.begin(115200);
+  ReadTime();
+  Serial.printf("%02dh:%02dm:%02ds - %02d-%02d-%04d\n", uren, minuten, seconden, dag, maand, jaar);
   pixels.begin();                                // This initializes the NeoPixel library.  
 }
 
 void loop()
 {
-  SetAll(0, 0, 0, 0);
-  ShowWord(LT_MINUTE_1, 10, 0, 0, 0);  
+  SetAll(0, 0, 0, 0, 0);
+  ReadTime();
+  Serial.printf("%02dh:%02dm:%02ds - %02d-%02d-%04d\n", uren, minuten, seconden, dag, maand, jaar);
+  BuildScreenTime();
+  pixels.show();
+  delay(30000);
+  
+  /*ShowWord(LT_MINUTE_1, 10, 0, 0, 0);  
   pixels.show();
   delay(500);
   ShowWord(LT_MINUTE_2, 0, 10, 0, 0);  
@@ -69,7 +92,7 @@ void loop()
   pixels.show();
   delay(500);
   
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LW_HET, 10, 0, 0, 0);  
   pixels.show();
@@ -84,7 +107,7 @@ void loop()
   pixels.show();
   delay(500);
   
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LW_TIEN, 10, 0, 0, 0);  
   pixels.show();
@@ -100,7 +123,7 @@ void loop()
   delay(500);  
 
   
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LW_FIJNE, 10, 0, 0, 0);  
   pixels.show();
@@ -115,7 +138,7 @@ void loop()
   pixels.show();
   delay(500);  
     
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LW_VER, 10, 0, 0, 0);  
   pixels.show();
@@ -130,7 +153,7 @@ void loop()
   pixels.show();
   delay(500);  
     
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LW_SEC, 10, 0, 0, 0);  
   pixels.show();
@@ -145,7 +168,7 @@ void loop()
   pixels.show();
   delay(500);  
     
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LC_EEN, 10, 0, 0, 0);  
   pixels.show();
@@ -160,7 +183,7 @@ void loop()
   pixels.show();
   delay(500);  
      
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LC_VIJF, 10, 0, 0, 0);  
   pixels.show();
@@ -175,7 +198,7 @@ void loop()
   pixels.show();
   delay(500);  
     
-  SetAll(0, 0, 0, 0); 
+  SetAll(0, 0, 0, 0, 0);
   
   ShowWord(LC_NEGEN, 10, 0, 0, 0);  
   pixels.show();
@@ -188,12 +211,12 @@ void loop()
   delay(500);  
   ShowWord(LC_TWAALF, 10, 0, 0, 10);  
   pixels.show();
-  delay(500);  
+  delay(500);  */
 
   //Laatzien(10, 0, 0, 0);
   //Laatzien(0, 10, 0, 0);
   //Laatzien(0, 0, 10, 0);
   //Laatzien(0, 0, 0, 10);
-  //SetAll(0, 0, 0, 0);
+  //SetAll(0, 0, 0, 0, 0);
   
 }
